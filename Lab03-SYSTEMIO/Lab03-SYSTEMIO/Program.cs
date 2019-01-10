@@ -6,7 +6,37 @@ namespace Lab03_SYSTEMIO
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            // DO SOMETHING
+        }
+
+        static void HomeNav()
+        {
+
+        }
+
+        static void ViewWords()
+        {
+
+        }
+
+        static void AddWord()
+        {
+
+        }
+
+        static void RemoveWord()
+        {
+
+        }
+
+        static void NewGame()
+        {
+
+        }
+
+        static void ExitGame()
+        {
+
         }
     }
 }
