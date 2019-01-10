@@ -6,7 +6,7 @@ namespace Lab03_SYSTEMIO
     {
         static void Main(string[] args)
         {
-            // DO SOMETHING
+            NewGame();
         }
 
         static void HomeNav()
@@ -31,12 +31,20 @@ namespace Lab03_SYSTEMIO
 
         static void NewGame()
         {
-
+            Console.WriteLine("*************************************");
+            Console.WriteLine("WELCOME TO JOSIE CAT'S GUESSING GAME!");
+            Console.WriteLine("*************************************");
+            Console.WriteLine("");
+            Console.WriteLine("    Please press ENTER to begin.");
+            Console.ReadLine();
         }
 
         static void ExitGame()
         {
-
+            Console.WriteLine("Thank you for playing Josie Cat's Guessing Game!");
+            Console.WriteLine("Press ENTER to close");
+            Console.ReadLine();
+            Environment.Exit(0);
         }
     }
 }
