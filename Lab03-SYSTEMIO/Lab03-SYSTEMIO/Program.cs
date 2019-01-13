@@ -6,7 +6,7 @@ namespace Lab03_SYSTEMIO
     class Program
     {
         private static string newWord;
-        public string path = ("../../../wordBank.txt");
+        public static string path = ("../../../wordBank.txt");
         string[] words = { "dog", "puppy", "pooch", "pupper", "woofer" };
 
         static void Main(string[] args)
@@ -31,7 +31,7 @@ namespace Lab03_SYSTEMIO
             Console.WriteLine("    3) Exit");
             Console.WriteLine();
             Console.WriteLine("*************************************");
-            Console.WriteLine("  What would you like to do?");
+            Console.WriteLine("    What would you like to do?");
             Console.WriteLine("*************************************");
             Console.WriteLine();
             Console.Write("Your Selection: ");
@@ -72,7 +72,7 @@ namespace Lab03_SYSTEMIO
             Console.WriteLine("    4) Exit");
             Console.WriteLine();
             Console.WriteLine("*************************************");
-            Console.WriteLine("  What would you like to do?");
+            Console.WriteLine("     What would you like to do?");
             Console.WriteLine("*************************************");
             Console.WriteLine();
             Console.Write("Your Selection: ");
@@ -82,12 +82,11 @@ namespace Lab03_SYSTEMIO
             switch (adminPick)
             {
                 case "1":
-                    Console.WriteLine("OPTION 1");
-                    Console.ReadLine();
+                    ViewWords();
                     break;
 
                 case "2":
-                    AddWord(newWord);
+                    AddWord(path);
                     break;
 
                 case "3":
@@ -104,36 +103,32 @@ namespace Lab03_SYSTEMIO
 
         static void ViewWords()
         {
-
+            using (StreamReader streamReader = new StreamReader(path))
+            {
+                string[] readWords = File.ReadAllLines(path);
+                foreach (string readWord in readWords)
+                {
+                    Console.WriteLine(readWord);
+                }
+            }
         }
 
         static void AddWord(string path)
         {
-            try
+            Console.WriteLine("What word would you like to add?");
+            Console.WriteLine();
+            Console.Write("New Word: ");
+            newWord = Console.ReadLine();
+            using (StreamWriter streamWriter = File.AppendText(path))
             {
-                using (StreamWriter streamWriter = new StreamWriter(path))
-                {
-                    Console.WriteLine("What word would you like to add?");
-                    Console.WriteLine();
-                    Console.Write("New Word: ");
-                    newWord = Console.ReadLine();
-                   
-                }
-            }
-            catch
-            {
-
+                 streamWriter.WriteLine(newWord);
             }
         }
 
         static void RemoveWord()
         {
 
-        }
 
-        static void NewGame()
-        {
-            
         }
 
         static void ExitGame()
