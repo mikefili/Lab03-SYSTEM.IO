@@ -40,8 +40,7 @@ namespace Lab03_SYSTEMIO
 
                 // if user selects '2' 
                 case "2":
-                    Console.WriteLine("OPTION 2");
-                    Console.ReadLine();
+                    AdminMenu();
                     break;
 
                 // if user selects '3' 
@@ -50,6 +49,50 @@ namespace Lab03_SYSTEMIO
                     Console.ReadLine();
                     break;
 
+            }
+        }
+
+        static void AdminMenu()
+        {
+            Console.Clear();
+            Console.WriteLine("*************************************");
+            Console.WriteLine("        GUESSING GAME ADMIN:");
+            Console.WriteLine("*************************************");
+            Console.WriteLine();
+            Console.WriteLine("    1) View Words");
+            Console.WriteLine("    2) Add Word");
+            Console.WriteLine("    3) Remove Word");
+            Console.WriteLine("    4) Exit");
+            Console.WriteLine();
+            Console.WriteLine("*************************************");
+            Console.WriteLine("  What would you like to do?");
+            Console.WriteLine("*************************************");
+            Console.WriteLine();
+            Console.Write("Your Selection: ");
+
+            string adminPick = Console.ReadLine();
+
+            switch (adminPick)
+            {
+                case "1":
+                    Console.WriteLine("OPTION 1");
+                    Console.ReadLine();
+                    break;
+
+                case "2":
+                    Console.WriteLine("OPTION 2");
+                    Console.ReadLine();
+                    break;
+
+                case "3":
+                    Console.WriteLine("OPTION 3");
+                    Console.ReadLine();
+                    break;
+
+                case "4":
+                    Console.WriteLine("OPTION 4");
+                    Console.ReadLine();
+                    break;
             }
         }
 
