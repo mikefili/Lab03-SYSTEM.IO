@@ -1,17 +1,56 @@
 ﻿using System;
+using System.IO;
 
 namespace Lab03_SYSTEMIO
 {
     class Program
     {
+        private static string newWord;
+
         static void Main(string[] args)
         {
-            NewGame();
+            HomeNav();
         }
 
         static void HomeNav()
         {
+            Console.WriteLine("*************************************");
+            Console.WriteLine("WELCOME TO JOSIE CAT'S GUESSING GAME!");
+            Console.WriteLine("*************************************");
+            Console.WriteLine();
+            Console.WriteLine("    1) Play");
+            Console.WriteLine("    2) Admin");
+            Console.WriteLine("    3) Exit");
+            Console.WriteLine();
+            Console.WriteLine("*************************************");
+            Console.WriteLine("  What would you like to do?");
+            Console.WriteLine("*************************************");
+            Console.WriteLine();
+            Console.Write("Your Selection: ");
 
+            string pick = Console.ReadLine();
+
+            switch (pick)
+            {
+                // if user selects '1'
+                case "1":
+                    Console.WriteLine("OPTION 1");
+                    Console.ReadLine();
+                    break;
+
+                // if user selects '2' 
+                case "2":
+                    Console.WriteLine("OPTION 2");
+                    Console.ReadLine();
+                    break;
+
+                // if user selects '3' 
+                case "3":
+                    Console.WriteLine("OPTION 3");
+                    Console.ReadLine();
+                    break;
+
+            }
         }
 
         static void ViewWords()
@@ -19,9 +58,32 @@ namespace Lab03_SYSTEMIO
 
         }
 
-        static void AddWord()
+        static void AddWord(string path)
         {
+            try
+            {
+                using (StreamWriter streamWriter = new StreamWriter(path))
+                {
+                    Console.WriteLine("What word would you like to add?");
+                    Console.WriteLine();
+                    Console.Write("New Word: ");
+                    newWord = Console.ReadLine();
 
+                    if (newWord == "")
+                    {
+                        Console.WriteLine("Sorry, provide a word.");
+                        Console.WriteLine();
+                    }
+                    switch (newWord)
+                    {
+
+                    }
+                }
+            }
+            catch
+            {
+
+            }
         }
 
         static void RemoveWord()
@@ -31,12 +93,7 @@ namespace Lab03_SYSTEMIO
 
         static void NewGame()
         {
-            Console.WriteLine("*************************************");
-            Console.WriteLine("WELCOME TO JOSIE CAT'S GUESSING GAME!");
-            Console.WriteLine("*************************************");
-            Console.WriteLine("");
-            Console.WriteLine("    Please press ENTER to begin.");
-            Console.ReadLine();
+            
         }
 
         static void ExitGame()
