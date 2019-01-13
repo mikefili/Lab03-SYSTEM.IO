@@ -6,10 +6,18 @@ namespace Lab03_SYSTEMIO
     class Program
     {
         private static string newWord;
+        public string path = ("../../../wordBank.txt");
+        string[] words = { "dog", "puppy", "pooch", "pupper", "woofer" };
 
         static void Main(string[] args)
         {
-            HomeNav();
+            bool runHomeNav = true;
+            while (runHomeNav)
+            {
+                HomeNav();
+            }
+            ExitGame();
+            
         }
 
         static void HomeNav()
@@ -45,8 +53,7 @@ namespace Lab03_SYSTEMIO
 
                 // if user selects '3' 
                 case "3":
-                    Console.WriteLine("OPTION 3");
-                    Console.ReadLine();
+                    ExitGame();
                     break;
 
             }
@@ -80,8 +87,7 @@ namespace Lab03_SYSTEMIO
                     break;
 
                 case "2":
-                    Console.WriteLine("OPTION 2");
-                    Console.ReadLine();
+                    AddWord(newWord);
                     break;
 
                 case "3":
@@ -90,8 +96,8 @@ namespace Lab03_SYSTEMIO
                     break;
 
                 case "4":
-                    Console.WriteLine("OPTION 4");
-                    Console.ReadLine();
+                    Console.Clear();
+                    HomeNav();
                     break;
             }
         }
@@ -111,16 +117,7 @@ namespace Lab03_SYSTEMIO
                     Console.WriteLine();
                     Console.Write("New Word: ");
                     newWord = Console.ReadLine();
-
-                    if (newWord == "")
-                    {
-                        Console.WriteLine("Sorry, provide a word.");
-                        Console.WriteLine();
-                    }
-                    switch (newWord)
-                    {
-
-                    }
+                   
                 }
             }
             catch
