@@ -103,8 +103,7 @@ namespace Lab03_SYSTEMIO
                     break;
 
                 case "3":
-                    Console.WriteLine("OPTION 3");
-                    Console.ReadLine();
+                    RemoveWord(path);
                     break;
 
                 case "4":
@@ -129,20 +128,66 @@ namespace Lab03_SYSTEMIO
 
         static void AddWord(string path)
         {
-            Console.WriteLine("What word would you like to add?");
-            Console.WriteLine();
-            Console.Write("New Word: ");
-            newWord = Console.ReadLine();
-            using (StreamWriter streamWriter = File.AppendText(path))
+            try
             {
-                 streamWriter.WriteLine(newWord);
+                Console.WriteLine("What word would you like to add?");
+                Console.WriteLine();
+                Console.Write("New Word: ");
+                newWord = Console.ReadLine();
+                using (StreamWriter streamWriter = File.AppendText(path))
+                {
+                    streamWriter.WriteLine(newWord);
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("An error occurred: '{0}'", e);
             }
         }
 
-        static void RemoveWord()
+        static void RemoveWord(string path)
         {
+            string[] words = ViewWords(path);
+            Console.WriteLine("\nWhich word would you like to delete?");
+            string toDeleteRaw = Console.ReadLine();
+            string toDelete = toDeleteRaw.ToUpper();
+            string[] newWords = new string[words.Length];
+            for (int i = 0; i < words.Length; i++)
+            {
+                if (toDelete != words[i])
+                {
+                    newWords[i] = words[i];
+                }
+                if (newWords == words)
+                {
+                    Console.WriteLine("That's not one of the words!");
+                    AdminMenu();
+                }
+            }
+            DeleteFile(path);
+            using (StreamWriter streamWriter = new StreamWriter(path))
+            {
+                foreach (string word in newWords)
+                {
+                    streamWriter.WriteLine(word);
+                }
+            }
+            Console.WriteLine("Remaining words: ");
+            ViewWords(path);
+            AdminMenu();
+        }
 
+        static void DeleteFile(string path)
+        {
+            try
+            {
+                File.Delete(path);
+            }
+            catch (Exception)
+            {
 
+                throw;
+            }
         }
 
         static void ExitGame()
