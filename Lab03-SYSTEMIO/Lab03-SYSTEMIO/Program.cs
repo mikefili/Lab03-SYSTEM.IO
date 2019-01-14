@@ -67,7 +67,7 @@ namespace Lab03_SYSTEMIO
         static string RandomWord(string path)
         {
             Random random = new Random();
-            string[] words = ViewWords(path);
+            string[] words = ReadFile(path);
             int selectedIndex = random.Next(words.Length);
             return words[selectedIndex];
         }
@@ -95,10 +95,12 @@ namespace Lab03_SYSTEMIO
             switch (adminPick)
             {
                 case "1":
-                    ViewWords(path);
+                    Console.Clear();
+                    ReadFile(path);
                     break;
 
                 case "2":
+                    Console.Clear();
                     AddWord(path);
                     break;
 
@@ -113,7 +115,7 @@ namespace Lab03_SYSTEMIO
             }
         }
 
-        public static string[] ViewWords(string path)
+        public static string[] ReadFile(string path)
         {
             using (StreamReader streamReader = new StreamReader(path))
             {
@@ -124,6 +126,13 @@ namespace Lab03_SYSTEMIO
                 }
                 return readWords;
             }
+        }
+
+        public static void DisplayWords()
+        {
+            ReadFile(path);
+            Console.WriteLine();
+            AdminMenu();
         }
 
         static void AddWord(string path)
@@ -147,8 +156,8 @@ namespace Lab03_SYSTEMIO
 
         static void RemoveWord(string path)
         {
-            string[] words = ViewWords(path);
-            Console.WriteLine("\nWhich word would you like to delete?");
+            string[] words = ReadFile(path);
+            Console.WriteLine("Which word would you like to delete?");
             string toDeleteRaw = Console.ReadLine();
             string toDelete = toDeleteRaw.ToUpper();
             string[] newWords = new string[words.Length];
@@ -173,7 +182,7 @@ namespace Lab03_SYSTEMIO
                 }
             }
             Console.WriteLine("Remaining words: ");
-            ViewWords(path);
+            DisplayWords();
             AdminMenu();
         }
 
