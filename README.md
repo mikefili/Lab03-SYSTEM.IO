@@ -59,3 +59,5 @@ Welcome to Josie Cat's Word Guessing Game! If you've ever played Hangman before,
 ![Exit Game](./assets/exit.PNG)
 
 ## Thanks for Playing!
+
+#### Mike Filicetti 2019
