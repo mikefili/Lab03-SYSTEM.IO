@@ -1,3 +1,5 @@
-Dingo
-Pup
-Dingo
+dog
+puppy
+pooch
+pupper
+woofer
