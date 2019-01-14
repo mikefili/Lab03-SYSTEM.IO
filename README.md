@@ -19,7 +19,7 @@ Welcome to Josie Cat's Word Guessing Game! If you've ever played Hangman before,
 ## Visuals
 
 ### Main Menu
-![Main Menu](Assets/main.PNG)
+![Main Menu](Assets/main_menu.PNG)
 
 ### Game Play Demo
 #### Screenshot 1:
