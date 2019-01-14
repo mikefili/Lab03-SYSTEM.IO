@@ -19,44 +19,44 @@ Welcome to Josie Cat's Word Guessing Game! If you've ever played Hangman before,
 ## Visuals
 
 ### Main Menu
-![Main Menu](./assets/main.PNG)
+![Main Menu](Assets/main_menu.PNG)
 
 ### Game Play Demo
 #### Screenshot 1:
-![Game Demo 1](./assets/play_game1.PNG)
+![Game Demo 1](Assets/play_game1.PNG)
 
 #### Screenshot 2:
-![Game Demo 2](./assets/play_game2.PNG)
+![Game Demo 2](Assets/play_game2.PNG)
 
 #### Screenshot 3:
-![Game Demo 3](./assets/play_game3.PNG)
+![Game Demo 3](Assets/play_game3.PNG)
 
 #### Screenshot 4:
-![Game Demo 4](./assets/play_game4.PNG)
+![Game Demo 4](Assets/play_game4.PNG)
 
 #### Screenshot 5:
-![Game Demo 5](./assets/play_game5.PNG)
+![Game Demo 5](Assets/play_game5.PNG)
 
 #### You Win:
-![You Win!](./assets/you_win.PNG)
+![You Win!](Assets/you_win.PNG)
 
 ### Admin Menu
-![Admin Menu](./assets/admin_menu.PNG)
+![Admin Menu](Assets/admin_menu.PNG)
 
 #### View Current Word Bank:
-![View Word Bank](./assets/view_words.PNG)
+![View Word Bank](Assets/view_words.PNG)
 
 #### Add a Word:
-![Add a Word](./assets/add_word.PNG)
+![Add a Word](Assets/add_word.PNG)
 
 #### View Updated Word Bank:
-![View Updated Word Bank](./assets/view_words_with_added.PNG)
+![View Updated Word Bank](Assets/view_words_with_added.PNG)
 
 #### Remove a Word:
-![Remove a Word](./assets/remove_word.PNG)
+![Remove a Word](Assets/remove_word.PNG)
 
 #### Exit Game:
-![Exit Game](./assets/exit.PNG)
+![Exit Game](Assets/exit.PNG)
 
 ## Thanks for Playing!
 
