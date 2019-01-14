@@ -59,6 +59,19 @@ namespace Lab03_SYSTEMIO
             }
         }
 
+        static void PlayGame(string path)
+        {
+
+        }
+
+        static string RandomWord(string path)
+        {
+            Random random = new Random();
+            string[] words = ViewWords(path);
+            int selectedIndex = random.Next(words.Length);
+            return words[selectedIndex];
+        }
+
         static void AdminMenu()
         {
             Console.Clear();
@@ -82,7 +95,7 @@ namespace Lab03_SYSTEMIO
             switch (adminPick)
             {
                 case "1":
-                    ViewWords();
+                    ViewWords(path);
                     break;
 
                 case "2":
@@ -101,7 +114,7 @@ namespace Lab03_SYSTEMIO
             }
         }
 
-        static void ViewWords()
+        public static string[] ViewWords(string path)
         {
             using (StreamReader streamReader = new StreamReader(path))
             {
@@ -110,6 +123,7 @@ namespace Lab03_SYSTEMIO
                 {
                     Console.WriteLine(readWord);
                 }
+                return readWords;
             }
         }
 
