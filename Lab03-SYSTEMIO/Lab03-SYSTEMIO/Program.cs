@@ -6,14 +6,18 @@ namespace Lab03_SYSTEMIO
 {
     class Program
     {
-        public static string newWord;
+        // declare public variables including file paths
+        public static string newWordRaw;
         public static string mysteryWord;
         public static bool correct = false;
         public static string path = ("../../../wordBank.txt");
         public static string attempts = ("../../../attempts.txt");
 
+        // Main method
         static void Main(string[] args)
         {
+            // create word list at path above
+            // while loop keeps game running until exit
             CreateWordList(path);
             bool runHomeNav = true;
             while (runHomeNav)
@@ -24,8 +28,12 @@ namespace Lab03_SYSTEMIO
             
         }
 
+        /// <summary>
+        /// home navigation menu interface
+        /// </summary>
         static void HomeNav()
         {
+            Console.Clear();
             Console.WriteLine("*************************************");
             Console.WriteLine("WELCOME TO JOSIE CAT'S GUESSING GAME!");
             Console.WriteLine("*************************************");
@@ -42,45 +50,60 @@ namespace Lab03_SYSTEMIO
 
             string pick = Console.ReadLine();
 
+            // switch statement allows user to pick from three options
             switch (pick)
             {
-                // if user selects '1'
+                // if user selects '1' begin game w/ PlayGame method
                 case "1":
                     PlayGame(mysteryWord);
                     break;
 
-                // if user selects '2' 
+                // if user selects '2' open admin menu w/ AdminMenu method
                 case "2":
                     AdminMenu();
                     break;
 
-                // if user selects '3' 
+                // if user selects '3' exit app w/ ExitGame method
                 case "3":
                     ExitGame();
                     break;
-
             }
         }
 
+        /// <summary>
+        /// pass PlayGame method a mystery word and start game
+        /// </summary>
+        /// <param name="mysteryWord">mystery word from word bank</param>
         public static void PlayGame(string mysteryWord)
         {
-            Console.Clear();
+            // get a random word from the word bank
             mysteryWord = RandomWord(path);
-            //File.Create(attempts).Dispose();
+            // create a new attempts file & dispose of any existing file
+            File.Create(attempts).Dispose();
+            Console.Clear();
+            // layout game board for player based on length of mystery word
             string[] gameBoard = new string[mysteryWord.Length];
             for (int i = 0; i < mysteryWord.Length; i++)
             {
                 gameBoard[i] = "___ ";
                 Console.Write($"{gameBoard[i]}");
             }
-            Console.WriteLine("please enter a letter");
+            // request guess from user
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.Write("Please enter a letter: ");
+            // iterate through game board so long as letters remain to be guessed
             while (gameBoard.Contains("___ "))
             {
-                string guessedLetter = Console.ReadLine();
+                // take in guess from user
+                string guessedLetterRaw = Console.ReadLine();
+                string guessedLetter = guessedLetterRaw.ToUpper();
+                // confirm only one letter received
                 if (guessedLetter.Length != 1)
                 {
-                    Console.WriteLine("please press one letter");
+                    Console.WriteLine("One letter only, please.");
                 }
+                // use GuessValidator method to check for guessed letter in mystery word
                 bool result = GuessValidator(mysteryWord, guessedLetter);
                 if (result == true)
                 {
@@ -93,6 +116,8 @@ namespace Lab03_SYSTEMIO
                         }
                     }
                 }
+                Console.Clear();
+                // append guessed letter to attempts file
                 try
                 {
                     using (StreamWriter streamWriter = File.AppendText(attempts))
@@ -108,28 +133,57 @@ namespace Lab03_SYSTEMIO
                 {
                     Console.Write($"{gameBoard[i]}");
                 }
-                Console.Write("    ");
-                string[] lines = File.ReadAllLines(attempts);
+                Console.WriteLine();
+                // display letters guessed so far
+                string[] guesses = File.ReadAllLines(attempts);
+                Console.WriteLine();
                 Console.WriteLine("Guessed: ");
-                for (int i = 0; i < lines.Length; i++)
+                for (int i = 0; i < guesses.Length; i++)
                 {
-                    Console.WriteLine(lines[i]);
+                    Console.Write(guesses[i].ToUpper());
                 }
+                Console.WriteLine();
+                Console.WriteLine();
+                // request next guess from user
+                Console.Write("Please enter a letter: ");
+                Console.Write("");
             }
-            Console.WriteLine("       ___.__. ____  __ __ ");
-            Console.WriteLine("      <   |  |/  _ \\|  |  \\");
-            Console.WriteLine("       \\___  (  <_> )  |  /");
-            Console.WriteLine("       / ____|\\____/|____/");
+            // alert user that they've won the game!
+            Console.Clear();
+            Console.WriteLine("     ___.__. ____  __ __ ");
+            Console.WriteLine("    <   |  |/  _ \\|  |  \\");
+            Console.WriteLine("     \\___  (  <_> )  |  /");
+            Console.WriteLine("     / ____|\\____/|____/");
             Console.WriteLine();
-            Console.WriteLine("              .__");
-            Console.WriteLine("      __  _  _|__| ____");
-            Console.WriteLine("      \\ \\/ \\/ /  |/    \\");
-            Console.WriteLine("       \\     /|  |   |  \\");
-            Console.WriteLine("        \\/\\_/ |__|___|  /");
-            Console.WriteLine("                      \\/");
-
+            Console.WriteLine("            .__");
+            Console.WriteLine("    __  _  _|__| ____");
+            Console.WriteLine("    \\ \\/ \\/ /  |/    \\");
+            Console.WriteLine("     \\     /|  |   |  \\");
+            Console.WriteLine("      \\/\\_/ |__|___|  /");
+            Console.WriteLine("                    \\/");
+            Console.WriteLine();
+            Console.WriteLine("       _          ___");
+            Console.WriteLine("     /' '\\       / \" \\");
+            Console.WriteLine("    |  ,--+-----4 /   |");
+            Console.WriteLine("    ',/   o  o     --.;");
+            Console.WriteLine(" --._|_   ,--.  _.,-- \\----.");
+            Console.WriteLine(" ------'--`--' '-----,'     |");
+            Console.WriteLine("      \\_  ._\\_.   _,-'---._.'");
+            Console.WriteLine("        `--...--``  /");
+            Console.WriteLine("          /###\\   | |");
+            Console.WriteLine("          |.   `.-'-'.");
+            Console.WriteLine("         .||  /,     |");
+            Console.WriteLine("        do_o00oo_,.ob");
+            Console.WriteLine();
+            Console.WriteLine("Press ENTER to return to the Main Menu");
+            Console.ReadLine();
         }
 
+        /// <summary>
+        /// return a random word from the word bank
+        /// </summary>
+        /// <param name="path">path to word bank</param>
+        /// <returns></returns>
         static string RandomWord(string path)
         {
             Random random = new Random();
@@ -138,67 +192,29 @@ namespace Lab03_SYSTEMIO
             return words[randomIndex];
         }
 
+        /// <summary>
+        /// check to see if the guessed letter is present in the mystery word
+        /// </summary>
+        /// <param name="mysteryWord">mytery word from word bank</param>
+        /// <param name="guessedLetter">letter guessed by user</param>
+        /// <returns></returns>
         public static bool GuessValidator(string mysteryWord, string guessedLetter)
         {
-            string temp = "";
+            string valid = "";
             for (int i = 0; i < mysteryWord.Length; i++)
             {
                 if (mysteryWord[i].ToString() == guessedLetter)
                 {
-                    temp = temp + guessedLetter;
+                    valid = valid + guessedLetter;
                 }
             }
-            if (temp != "") return true;
+            if (valid != "") return true;
             else return false;
         }
 
-        public static string[] UpdateFile(string path, string input)
-        {
-            string formattedInput = input.ToUpper();
-
-            using (StreamWriter streamWriter = File.AppendText(path))
-            {
-                streamWriter.WriteLine(formattedInput);
-            }
-            return ReadFile(path);
-        }
-
-        public static char[] WordValidator(string word)
-        {
-            int wordLength = word.Length;
-            char[] character = new char[wordLength];
-            for (int i = 0; i < wordLength; i++)
-            {
-                character[i] = '_';
-            }
-
-            string[] attemptedLetters = File.ReadAllLines(attempts);
-            char[] attemptedChar = new char[attemptedLetters.Length];
-            for (int i = 0; i < attemptedLetters.Length; i++)
-            {
-                attemptedChar[i - 1] = Convert.ToChar(attemptedLetters[i]);
-            };
-            for (int i = 0; i < attemptedLetters.Length; i++)
-            {
-                for (int j = 0; j < word.Length; j++)
-                {
-                    if (word[j] == attemptedChar[i])
-                    {
-                        character[j] = word[j];
-                    }
-                }
-            }
-            return character;
-        }
-
-        public static string TakeInGuess()
-        {
-            Console.Write("Guess a Letter: ");
-            string guessedLetterRaw = Console.ReadLine();
-            string guessedLetter = guessedLetterRaw.ToUpper();
-            return guessedLetter;
-        }
-
+        /// <summary>
+        /// admin menu interface
+        /// </summary>
         static void AdminMenu()
         {
             Console.Clear();
@@ -219,23 +235,28 @@ namespace Lab03_SYSTEMIO
 
             string adminPick = Console.ReadLine();
 
+            // switch statement allows user to pick from three options
             switch (adminPick)
             {
+                // if user selects '1' display word bank
                 case "1":
                     Console.Clear();
-                    ReadFile(path);
+                    DisplayWords();
                     break;
 
+                // if user selects '2' display add word interface
                 case "2":
                     Console.Clear();
                     AddWord(path);
                     break;
 
+                // if user selects '3' display remove word interface
                 case "3":
                     Console.Clear();
                     RemoveWord(path);
                     break;
 
+                // if user selects '4' exit back to main menu
                 case "4":
                     Console.Clear();
                     HomeNav();
@@ -243,6 +264,10 @@ namespace Lab03_SYSTEMIO
             }
         }
 
+        /// <summary>
+        /// create word bank file & fill it with an array of starter words
+        /// </summary>
+        /// <param name="path">path to word bank</param>
         public static void CreateWordList(string path)
         {
             using (StreamWriter streamWriter = new StreamWriter(path))
@@ -252,7 +277,7 @@ namespace Lab03_SYSTEMIO
                 {
                     foreach (string word in words)
                     {
-                        streamWriter.WriteLine($"{word}");
+                        streamWriter.WriteLine($"{word.ToUpper()}");
                     }
                 }
                 catch (Exception e)
@@ -262,14 +287,11 @@ namespace Lab03_SYSTEMIO
             }
         }
 
-        public static void CreateGuessList()
-        {
-            using (StreamWriter streamWriter = new StreamWriter(attempts))
-            {
-                streamWriter.WriteLine("Your Attempts: ");
-            }
-        }
-
+        /// <summary>
+        /// read all words currently in word bank & write each on a new line
+        /// </summary>
+        /// <param name="path">path to word bank</param>
+        /// <returns>words currently in word bank</returns>
         public static string[] ReadFile(string path)
         {
             using (StreamReader streamReader = new StreamReader(path))
@@ -283,13 +305,23 @@ namespace Lab03_SYSTEMIO
             }
         }
 
+        /// <summary>
+        /// display all words currently in word bank & allow user to return
+        /// to admin menu after
+        /// </summary>
         public static void DisplayWords()
         {
             ReadFile(path);
             Console.WriteLine();
+            Console.WriteLine("Press ENTER to return to the Admin Menu");
+            Console.ReadLine();
             AdminMenu();
         }
 
+        /// <summary>
+        /// add a new word to the word bank
+        /// </summary>
+        /// <param name="path">path to word bank</param>
         static void AddWord(string path)
         {
             try
@@ -297,11 +329,16 @@ namespace Lab03_SYSTEMIO
                 Console.WriteLine("What word would you like to add?");
                 Console.WriteLine();
                 Console.Write("New Word: ");
-                newWord = Console.ReadLine();
+                newWordRaw = Console.ReadLine();
+                string newWord = newWordRaw.ToUpper();
+
                 using (StreamWriter streamWriter = File.AppendText(path))
                 {
                     streamWriter.WriteLine(newWord);
                 }
+                Console.WriteLine($"You have successfully added the word: {newWord}");
+                Console.WriteLine("Press ENTER to return to the Main Menu");
+                Console.ReadLine();
             }
             catch (Exception e)
             {
@@ -309,6 +346,10 @@ namespace Lab03_SYSTEMIO
             }
         }
 
+        /// <summary>
+        /// remove a word from the word bank
+        /// </summary>
+        /// <param name="path">path to word bank</param>
         static void RemoveWord(string path)
         {
             string[] words = ReadFile(path);
@@ -341,6 +382,10 @@ namespace Lab03_SYSTEMIO
             AdminMenu();
         }
 
+        /// <summary>
+        /// file deletion handler
+        /// </summary>
+        /// <param name="path">path to word bank</param>
         static void DeleteFile(string path)
         {
             try
@@ -353,8 +398,12 @@ namespace Lab03_SYSTEMIO
             }
         }
 
+        /// <summary>
+        /// exit the game
+        /// </summary>
         static void ExitGame()
         {
+            Console.Clear();
             Console.WriteLine("Thank you for playing Josie Cat's Guessing Game!");
             Console.WriteLine("Press ENTER to close");
             Console.ReadLine();
