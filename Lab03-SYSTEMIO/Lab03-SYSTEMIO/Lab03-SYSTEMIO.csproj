@@ -6,4 +6,8 @@
     <RootNamespace>Lab03_SYSTEMIO</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Classes\" />
+  </ItemGroup>
+
 </Project>
