@@ -3,8 +3,8 @@ using System;
 using Xunit;
 
 // X Test that a file can be updated
-//   Test that a word can be added to a file
-//   Test that you can retrieve all words from the file
+// X Test that a word can be added to a file
+// X Test that you can retrieve all words from the file
 //   Test that the word chosen can accurately detect if the letter exists in the word(test that a letter does exist and does not exist)
 
 namespace UnitTests_SystemIO
@@ -30,13 +30,13 @@ namespace UnitTests_SystemIO
             Assert.Contains(testWord, Program.ReadFile(Program.path));
         }
 
-        //[Fact]
-        //public void CanAddWordToWordBank()
-        //{
-        //    string path = ("../../../wordBank.txt");
-        //    string testInput = "DINGO";
-        //    string[] expected = { "DOG", "PUPPY", "POOCH", "PUPPER", "WOOFER", "DINGO" };
-        //    Assert.Equal(expected, Program.AddWord(path, testInput));
-        //}
+        [Fact]
+        public void CanRetrieveAllWordsFromWordBank()
+        {
+            Program.DeleteFile(Program.path);
+            Program.CreateWordList();
+            string[] expected = { "DOG", "PUPPY", "POOCH", "PUPPER", "WOOFER" };
+            Assert.Equal(expected, Program.ReadFile(Program.path));
+        }
     }
 }
