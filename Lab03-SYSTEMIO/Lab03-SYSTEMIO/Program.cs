@@ -251,6 +251,7 @@ namespace Lab03SYSTEMIO
                 case "2":
                     Console.Clear();
                     AddWord(path, ValidateInput());
+                    Console.ReadLine();
                     break;
 
                 // if user selects '3' display remove word interface
@@ -347,7 +348,6 @@ namespace Lab03SYSTEMIO
             }
             Console.WriteLine($"You have successfully added the word: {newWord}");
             Console.WriteLine("Press ENTER to return to the Main Menu");
-            Console.ReadLine();
             return newWord;
         }
 
