@@ -18,7 +18,7 @@ namespace Lab03SYSTEMIO
         {
             // create word list at path above
             // while loop keeps game running until exit
-            CreateWordList(path);
+            CreateWordList();
             bool runHomeNav = true;
             while (runHomeNav)
             {
@@ -250,7 +250,7 @@ namespace Lab03SYSTEMIO
                 // if user selects '2' display add word interface
                 case "2":
                     Console.Clear();
-                    AddWord(path);
+                    AddWord(path, ValidateInput());
                     break;
 
                 // if user selects '3' display remove word interface
@@ -271,23 +271,15 @@ namespace Lab03SYSTEMIO
         /// create word bank file & fill it with an array of starter words
         /// </summary>
         /// <param name="path">path to word bank</param>
-        public static string[] CreateWordList(string path)
+        public static void CreateWordList()
         {
+            string[] words = { "dog", "puppy", "pooch", "pupper", "woofer" };
             using (StreamWriter streamWriter = new StreamWriter(path))
             {
-                string[] words = { "dog", "puppy", "pooch", "pupper", "woofer" };
-                try
+                foreach (string word in words)
                 {
-                    foreach (string word in words)
-                    {
-                        streamWriter.WriteLine($"{word.ToUpper()}");
-                    }
+                    streamWriter.WriteLine($"{word.ToUpper()}");
                 }
-                catch (Exception e)
-                {
-                    Console.WriteLine("An error occurred: '{0}'", e);
-                }
-                return words;
             }
         }
 
@@ -322,36 +314,41 @@ namespace Lab03SYSTEMIO
             AdminMenu();
         }
 
-        /// <summary>
-        /// add a new word to the word bank
-        /// </summary>
-        /// <param name="path">path to word bank</param>
-        public static void AddWord(string path)
+        public static string ValidateInput()
         {
             try
             {
                 Console.WriteLine("What word would you like to add?");
                 Console.WriteLine();
                 Console.Write("New Word: ");
-                newWordRaw = Console.ReadLine();
-                string newWord = newWordRaw.ToUpper();
-
-                using (StreamWriter streamWriter = File.AppendText(path))
-                {
-                    streamWriter.WriteLine(newWord);
-                }
-                Console.WriteLine($"You have successfully added the word: {newWord}");
-                Console.WriteLine("Press ENTER to return to the Main Menu");
-                Console.ReadLine();
+                string newWord = Console.ReadLine();
+                newWord = newWord.ToUpper();
+                return newWord;
             }
             catch (ArgumentNullException)
             {
-                Console.WriteLine("Please enter a word.");
+                return "Please enter a word.";
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                Console.WriteLine("An error occurred: '{0}'", e);
+                return "An error occurred";
             }
+        }
+
+        /// <summary>
+        /// add a new word to the word bank
+        /// </summary>
+        /// <param name="path">path to word bank</param>
+        public static string AddWord(string path, string newWord)
+        {
+            using (StreamWriter streamWriter = File.AppendText(path))
+            {
+                streamWriter.WriteLine(newWord);
+            }
+            Console.WriteLine($"You have successfully added the word: {newWord}");
+            Console.WriteLine("Press ENTER to return to the Main Menu");
+            Console.ReadLine();
+            return newWord;
         }
 
         /// <summary>

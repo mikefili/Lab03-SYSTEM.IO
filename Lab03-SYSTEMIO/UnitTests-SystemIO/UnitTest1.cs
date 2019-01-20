@@ -2,6 +2,11 @@ using Lab03SYSTEMIO;
 using System;
 using Xunit;
 
+//Test that a file can be updated
+//Test that a word can be added to a file
+//Test that you can retrieve all words from the file
+//Test that the word chosen can accurately detect if the letter exists in the word(test that a letter does exist and does not exist)
+
 namespace UnitTests_SystemIO
 {
     public class UnitTest1
@@ -9,16 +14,19 @@ namespace UnitTests_SystemIO
         [Fact]
         public void CanCreateWordList()
         {
-            string path = ("../../../wordBank.txt");
-            string[] expected = { "dog", "puppy", "pooch", "pupper", "woofer" };
-            Program.DeleteFile(path);
-            Assert.Equal(expected, Program.CreateWordList(path));
+            string testWord = "DOG";
+            Program.DeleteFile(Program.path);
+            Program.CreateWordList();
+            Assert.Contains(testWord, Program.ReadFile(Program.path));
         }
 
-        [Fact]
-        public void Test1()
-        {
-
-        }
+        //[Fact]
+        //public void CanAddWordToWordBank()
+        //{
+        //    string path = ("../../../wordBank.txt");
+        //    string testInput = "DINGO";
+        //    string[] expected = { "DOG", "PUPPY", "POOCH", "PUPPER", "WOOFER", "DINGO" };
+        //    Assert.Equal(expected, Program.AddWord(path, testInput));
+        //}
     }
 }
