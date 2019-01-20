@@ -45,5 +45,12 @@ namespace UnitTests_SystemIO
             string expected = "D";
             Assert.True(Program.GuessValidator("DOG", expected));
         }
+
+        [Fact]
+        public void CanCheckIfLetterDoesNotExistInMysteryWord()
+        {
+            string expected = "P";
+            Assert.False(Program.GuessValidator("DOG", expected));
+        }
     }
 }
