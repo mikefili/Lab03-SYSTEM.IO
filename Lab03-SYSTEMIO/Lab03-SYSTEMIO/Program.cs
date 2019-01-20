@@ -2,9 +2,9 @@
 using System.IO;
 using System.Linq;
 
-namespace Lab03_SYSTEMIO
+namespace Lab03SYSTEMIO
 {
-    class Program
+    public class Program
     {
         // declare public variables including file paths
         public static string newWordRaw;
@@ -14,7 +14,7 @@ namespace Lab03_SYSTEMIO
         public static string attempts = ("../../../attempts.txt");
 
         // Main method
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
             // create word list at path above
             // while loop keeps game running until exit
@@ -31,7 +31,7 @@ namespace Lab03_SYSTEMIO
         /// <summary>
         /// home navigation menu interface
         /// </summary>
-        static void HomeNav()
+        public static void HomeNav()
         {
             Console.Clear();
             Console.WriteLine("*************************************");
@@ -66,6 +66,9 @@ namespace Lab03_SYSTEMIO
                 // if user selects '3' exit app w/ ExitGame method
                 case "3":
                     ExitGame();
+                    break;
+
+                default:
                     break;
             }
         }
@@ -184,7 +187,7 @@ namespace Lab03_SYSTEMIO
         /// </summary>
         /// <param name="path">path to word bank</param>
         /// <returns></returns>
-        static string RandomWord(string path)
+        public static string RandomWord(string path)
         {
             Random random = new Random();
             string[] words = ReadFile(path);
@@ -268,7 +271,7 @@ namespace Lab03_SYSTEMIO
         /// create word bank file & fill it with an array of starter words
         /// </summary>
         /// <param name="path">path to word bank</param>
-        public static void CreateWordList(string path)
+        public static string[] CreateWordList(string path)
         {
             using (StreamWriter streamWriter = new StreamWriter(path))
             {
@@ -284,6 +287,7 @@ namespace Lab03_SYSTEMIO
                 {
                     Console.WriteLine("An error occurred: '{0}'", e);
                 }
+                return words;
             }
         }
 
@@ -322,7 +326,7 @@ namespace Lab03_SYSTEMIO
         /// add a new word to the word bank
         /// </summary>
         /// <param name="path">path to word bank</param>
-        static void AddWord(string path)
+        public static void AddWord(string path)
         {
             try
             {
@@ -340,6 +344,10 @@ namespace Lab03_SYSTEMIO
                 Console.WriteLine("Press ENTER to return to the Main Menu");
                 Console.ReadLine();
             }
+            catch (ArgumentNullException)
+            {
+                Console.WriteLine("Please enter a word.");
+            }
             catch (Exception e)
             {
                 Console.WriteLine("An error occurred: '{0}'", e);
@@ -350,7 +358,7 @@ namespace Lab03_SYSTEMIO
         /// remove a word from the word bank
         /// </summary>
         /// <param name="path">path to word bank</param>
-        static void RemoveWord(string path)
+        public static void RemoveWord(string path)
         {
             string[] words = ReadFile(path);
             Console.WriteLine("Which word would you like to delete?");
@@ -386,7 +394,7 @@ namespace Lab03_SYSTEMIO
         /// file deletion handler
         /// </summary>
         /// <param name="path">path to word bank</param>
-        static void DeleteFile(string path)
+        public static void DeleteFile(string path)
         {
             try
             {
@@ -401,7 +409,7 @@ namespace Lab03_SYSTEMIO
         /// <summary>
         /// exit the game
         /// </summary>
-        static void ExitGame()
+        public static void ExitGame()
         {
             Console.Clear();
             Console.WriteLine("Thank you for playing Josie Cat's Guessing Game!");
