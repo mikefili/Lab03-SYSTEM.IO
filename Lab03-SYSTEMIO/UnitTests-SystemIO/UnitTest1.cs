@@ -38,5 +38,12 @@ namespace UnitTests_SystemIO
             string[] expected = { "DOG", "PUPPY", "POOCH", "PUPPER", "WOOFER" };
             Assert.Equal(expected, Program.ReadFile(Program.path));
         }
+
+        [Fact]
+        public void CanCheckIfLetterExistsInMysteryWord()
+        {
+            string expected = "D";
+            Assert.True(Program.GuessValidator("DOG", expected));
+        }
     }
 }
