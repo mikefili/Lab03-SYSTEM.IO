@@ -2,9 +2,9 @@
 using System.IO;
 using System.Linq;
 
-namespace Lab03_SYSTEMIO
+namespace Lab03SYSTEMIO
 {
-    class Program
+    public class Program
     {
         // declare public variables including file paths
         public static string newWordRaw;
@@ -14,11 +14,11 @@ namespace Lab03_SYSTEMIO
         public static string attempts = ("../../../attempts.txt");
 
         // Main method
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
             // create word list at path above
             // while loop keeps game running until exit
-            CreateWordList(path);
+            CreateWordList();
             bool runHomeNav = true;
             while (runHomeNav)
             {
@@ -31,7 +31,7 @@ namespace Lab03_SYSTEMIO
         /// <summary>
         /// home navigation menu interface
         /// </summary>
-        static void HomeNav()
+        public static void HomeNav()
         {
             Console.Clear();
             Console.WriteLine("*************************************");
@@ -66,6 +66,9 @@ namespace Lab03_SYSTEMIO
                 // if user selects '3' exit app w/ ExitGame method
                 case "3":
                     ExitGame();
+                    break;
+
+                default:
                     break;
             }
         }
@@ -184,7 +187,7 @@ namespace Lab03_SYSTEMIO
         /// </summary>
         /// <param name="path">path to word bank</param>
         /// <returns></returns>
-        static string RandomWord(string path)
+        public static string RandomWord(string path)
         {
             Random random = new Random();
             string[] words = ReadFile(path);
@@ -247,7 +250,8 @@ namespace Lab03_SYSTEMIO
                 // if user selects '2' display add word interface
                 case "2":
                     Console.Clear();
-                    AddWord(path);
+                    AddWord(path, ValidateInput());
+                    Console.ReadLine();
                     break;
 
                 // if user selects '3' display remove word interface
@@ -268,21 +272,14 @@ namespace Lab03_SYSTEMIO
         /// create word bank file & fill it with an array of starter words
         /// </summary>
         /// <param name="path">path to word bank</param>
-        public static void CreateWordList(string path)
+        public static void CreateWordList()
         {
+            string[] words = { "dog", "puppy", "pooch", "pupper", "woofer" };
             using (StreamWriter streamWriter = new StreamWriter(path))
             {
-                string[] words = { "dog", "puppy", "pooch", "pupper", "woofer" };
-                try
+                foreach (string word in words)
                 {
-                    foreach (string word in words)
-                    {
-                        streamWriter.WriteLine($"{word.ToUpper()}");
-                    }
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine("An error occurred: '{0}'", e);
+                    streamWriter.WriteLine($"{word.ToUpper()}");
                 }
             }
         }
@@ -318,39 +315,47 @@ namespace Lab03_SYSTEMIO
             AdminMenu();
         }
 
-        /// <summary>
-        /// add a new word to the word bank
-        /// </summary>
-        /// <param name="path">path to word bank</param>
-        static void AddWord(string path)
+        public static string ValidateInput()
         {
             try
             {
                 Console.WriteLine("What word would you like to add?");
                 Console.WriteLine();
                 Console.Write("New Word: ");
-                newWordRaw = Console.ReadLine();
-                string newWord = newWordRaw.ToUpper();
-
-                using (StreamWriter streamWriter = File.AppendText(path))
-                {
-                    streamWriter.WriteLine(newWord);
-                }
-                Console.WriteLine($"You have successfully added the word: {newWord}");
-                Console.WriteLine("Press ENTER to return to the Main Menu");
-                Console.ReadLine();
+                string newWord = Console.ReadLine();
+                newWord = newWord.ToUpper();
+                return newWord;
             }
-            catch (Exception e)
+            catch (ArgumentNullException)
             {
-                Console.WriteLine("An error occurred: '{0}'", e);
+                return "Please enter a word.";
             }
+            catch (Exception)
+            {
+                return "An error occurred";
+            }
+        }
+
+        /// <summary>
+        /// add a new word to the word bank
+        /// </summary>
+        /// <param name="path">path to word bank</param>
+        public static string AddWord(string path, string newWord)
+        {
+            using (StreamWriter streamWriter = File.AppendText(path))
+            {
+                streamWriter.WriteLine(newWord);
+            }
+            Console.WriteLine($"You have successfully added the word: {newWord}");
+            Console.WriteLine("Press ENTER to return to the Main Menu");
+            return newWord;
         }
 
         /// <summary>
         /// remove a word from the word bank
         /// </summary>
         /// <param name="path">path to word bank</param>
-        static void RemoveWord(string path)
+        public static void RemoveWord(string path)
         {
             string[] words = ReadFile(path);
             Console.WriteLine("Which word would you like to delete?");
@@ -386,7 +391,7 @@ namespace Lab03_SYSTEMIO
         /// file deletion handler
         /// </summary>
         /// <param name="path">path to word bank</param>
-        static void DeleteFile(string path)
+        public static void DeleteFile(string path)
         {
             try
             {
@@ -401,7 +406,7 @@ namespace Lab03_SYSTEMIO
         /// <summary>
         /// exit the game
         /// </summary>
-        static void ExitGame()
+        public static void ExitGame()
         {
             Console.Clear();
             Console.WriteLine("Thank you for playing Josie Cat's Guessing Game!");
